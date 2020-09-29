@@ -55,7 +55,7 @@ input:focus {
   }
 }
 
-@mixin glitchCopy { 
+@mixin glitchCopy {
 		content: attr(data-text);
 		position: absolute;
 		top: 0;
@@ -70,8 +70,8 @@ input:focus {
   font-size: 0.75em;
 	/* Animation provies a slight random skew. Check bottom of doc
 	for more information on how to random skew. */
-	
-	// Creates a copy before our text. 
+
+	// Creates a copy before our text.
 	&::before{
 		// Duplicates our text with the mixin.
 		@include glitchCopy;
@@ -87,7 +87,7 @@ input:focus {
 		with an alternating animation to keep things fresh. */
 		animation: glitch-anim 5s infinite linear alternate-reverse;
 	}
-	
+
 	// Creates a copy after our text. Note comments from ::before.
 	&::after {
 		@include glitchCopy;
@@ -97,7 +97,7 @@ input:focus {
 	}
 }
 
-/* Creates an animation with 20 steaps. For each step, it calculates 
+/* Creates an animation with 20 steaps. For each step, it calculates
 a percentage for the specific step. It then generates a random clip
 box to be used for the random glitch effect. Also adds a very subtle
 skew to change the 'thickness' of the glitch.*/
