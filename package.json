@@ -1,0 +1,31 @@
+{
+  "//1": "describes your app and its dependencies",
+  "//2": "https://docs.npmjs.com/files/package.json",
+  "//3": "updating this file will download and update your packages",
+  "name": "hello-express",
+  "version": "0.0.1",
+  "description": "A supplement for a story my friend's making.",
+  "main": "server.js",
+  "scripts": {
+    "sass": "sass style.scss:public/style.css",
+    "start": "npm run sass && node server.js && echo 'Running!'"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "^0.0.2",
+    "socket.io": "^2.3.0",
+    "sass": "^1.26.11"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/hello-express"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}
