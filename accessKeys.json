@@ -1,23 +1,107 @@
 [
-  { "key": 91613, "name": "Cason", "level": 1 },
-  { "key": 17217, "name": "Cameron", "level": 1 },
-  { "key": 71917, "name": "Spare", "level": 1 },
-  { "key": 48553, "name": "Nagasa", "level": 1 },
-  { "key": 13036, "name": "Auriela", "level": 1 },
-  { "key": 85590, "name": "Evangeline", "level": 1 },
-  { "key": 42577, "name": "Rune", "level": 1 },
-  { "key": 51702, "name": "Hio", "level": 1 },
-  { "key": 62941, "name": "Antoni", "level": 1 },
-  { "key": 94272, "name": "Michelle", "level": 1 },
-  { "key": 11700, "name": "Remy", "level": 1 },
-  { "key": 17999, "name": "Hominem", "level": 1 },
-  { "key": 91328, "name": "Summer", "level": 1 },
-  { "key": 73750, "name": "Takumi", "level": 1 },
-  { "key": 37396, "name": "Fin", "level": 3 },
-  { "key": 66257, "name": "Ren", "level": 3 },
-  { "key": 97016, "name": "Hiro", "level": 3 },
-  { "key": 68916, "name": "Yva", "level": 3 },
-  { "key": 23544, "name": "Marshall", "level": 2 },
-  { "key": 31251, "name": "Alan", "level": 2 },
-  { "key": 2322, "name": "?????", "level": 5 }
+  {
+    "key": 91613,
+    "name": "Cason",
+    "level": 1
+  },
+  {
+    "key": 17217,
+    "name": "Cameron",
+    "level": 1
+  },
+  {
+    "key": 71917,
+    "name": "Spare",
+    "level": 1
+  },
+  {
+    "key": 48553,
+    "name": "Nagasa",
+    "level": 1
+  },
+  {
+    "key": 13036,
+    "name": "Auriela",
+    "level": 1
+  },
+  {
+    "key": 85590,
+    "name": "Evangeline",
+    "level": 1
+  },
+  {
+    "key": 42577,
+    "name": "Rune",
+    "level": 1
+  },
+  {
+    "key": 51702,
+    "name": "Hio",
+    "level": 1
+  },
+  {
+    "key": 62941,
+    "name": "Antoni",
+    "level": 1
+  },
+  {
+    "key": 94272,
+    "name": "Michelle",
+    "level": 1
+  },
+  {
+    "key": 11700,
+    "name": "Remy",
+    "level": 1
+  },
+  {
+    "key": 17999,
+    "name": "Hominem",
+    "level": 1
+  },
+  {
+    "key": 91328,
+    "name": "Summer",
+    "level": 1
+  },
+  {
+    "key": 73750,
+    "name": "Takumi",
+    "level": 1
+  },
+  {
+    "key": 37396,
+    "name": "Fin",
+    "level": 3
+  },
+  {
+    "key": 66257,
+    "name": "Ren",
+    "level": 3
+  },
+  {
+    "key": 97016,
+    "name": "Hiro",
+    "level": 3
+  },
+  {
+    "key": 68916,
+    "name": "Yva",
+    "level": 3
+  },
+  {
+    "key": 23544,
+    "name": "Marshall",
+    "level": 2
+  },
+  {
+    "key": 31251,
+    "name": "Alan",
+    "level": 2
+  },
+  {
+    "key": 2322,
+    "name": "?????",
+    "level": 5
+  }
 ]
