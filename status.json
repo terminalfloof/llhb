@@ -1,0 +1,12 @@
+{
+  "type": "countdown",
+  "data": {
+    "question": "Do you currently like this format?<br> 1: Yes.    2: No.",
+    "users": ["all"],
+    "allowedResponses": [1, 2],
+    "altMessage": "If you're seeing this, there was an internal error. whoops.",
+    "message": "hi",
+    "time": "10/02/2020 12:00 AM GMT-5",
+    "end": "<h1 class='glitch' data-text='Lau(n)ch.'>Lau(n)ch.</h1>"
+  }
+}
