@@ -11,16 +11,12 @@ for (var i = 0; i < data.length; i++) {
   acceptedCodes.push(parseInt(data[i].key));
 }
 
-//send the website.
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/views/index.html");
-});
+// send the website.
+app.get("/", (req, res) => { res.sendFile(__dirname + "/views/index.html"); });
 
 app.use(express.static("public"));
 
-http.listen(PORT, () => {
-  console.log(`listening on ${PORT}`);
-});
+http.listen(PORT, () => { console.log(`listening on ${PORT}`); });
 
 // Check if it's a valid access key.
 function getAccessData(accessKey) {
@@ -33,16 +29,15 @@ function getAccessData(accessKey) {
 
 function answersEdit(code, response) {
   let answers = JSON.parse(fs.readFileSync("answers.json", "UTF-8"));
-      for (var i = 0; i<Object.keys(answers).length; i++) {
-        if (answers[Object.keys(answers)[i]].key === code) {
-          answers[Object.keys(answers)[i]].response = response;
-        }
-      }
-    fs.writeFileSync("answers.json", JSON.stringify(answers), "UTF-8")
+  for (var i = 0; i < Object.keys(answers).length; i++) {
+    if (answers[Object.keys(answers)[i]].key === code) {
+      answers[Object.keys(answers)[i]].response = response;
+    }
+  }
+  fs.writeFileSync("answers.json", JSON.stringify(answers), "UTF-8")
 }
 
-
-//on connect,
+// on connect,
 io.on("connection", socket => {
   // on login, receive the code + a check function.
   socket.on("login", (code, check) => {

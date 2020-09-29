@@ -1,4 +1,4 @@
-//basic countdown
+// basic countdown
 
 function showEnd() {
   var end = new Date("9/20/2020 12:00 AM");
