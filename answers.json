@@ -1,7 +1,7 @@
 [
   { "key": 91613, "name": "Cason", "response": "", "type": 1 },
   { "key": 17217, "name": "Cameron", "response": 1, "type": 1 },
-  { "key": 71917, "name": "Spare", "response": 2, "type": 1 },
+  { "key": 71917, "name": "Spare", "response": "", "type": 1 },
   { "key": 48553, "name": "Nagasa", "response": "", "type": 1 },
   { "key": 13036, "name": "Auriela", "response": "", "type": 1 },
   { "key": 85590, "name": "Evangeline", "response": "", "type": 1 },
@@ -19,5 +19,5 @@
   { "key": 68916, "name": "Yva", "response": "", "type": 2 },
   { "key": 31251, "name": "Alan", "response": 1, "type": 2 },
   { "key": 23544, "name": "Marshall", "response": "", "type": 3 },
-  { "key": 2322, "name": "?????", "response": 1, "type": 4 }
+  { "key": 2322, "name": "?????", "response": "", "type": 4 }
 ]
