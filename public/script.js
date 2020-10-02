@@ -1,6 +1,11 @@
 //setup socket.io
 var socket = io();
 
+console.log(
+  "%chey there buster, welcome to the big boy dev console. type in debug to see the debug tool.",
+  `font-size: 1em; color: lime;`
+);
+
 //on document ready, hide "#app".
 $(document).ready(() => {
   $("#app").hide();
@@ -8,11 +13,16 @@ $(document).ready(() => {
 
 class DebugTool {
   constructor() {
-    this._glitchDebug = false;
+    this._textGlitch = false;
+    this._timerGlitch = false;
   }
 
-  get glitchDebug() {
-    return this._glitchDebug;
+  get textGlitch() {
+    return this._textGlitch;
+  }
+
+  get timerGlitch() {
+    return this._timerGlitch;
   }
 
   openApp() {
@@ -22,14 +32,28 @@ class DebugTool {
     });
   }
 
-  toggleGlitchDebug() {
-    if (!this._glitchDebug) {
-      console.log("Set glitchDebug to true.");
-      this._glitchDebug = true;
+  toggleTextGlitch() {
+    if (!this._textGlitch) {
+      this._textGlitch = true;
+      return "Set textGlitchDebug to true.";
     } else {
-      console.log("Set glitchDebug to false.");
-      this._glitchDebug = false;
+      this._textGlitch = false;
+      return "Set textGlitchDebug to false.";
     }
+  }
+
+  toggleTimerGlitch() {
+    if (!this._timerGlitch) {
+      this._timerGlitch = true;
+      return "Set timerGlitchDebug to true.";
+    } else {
+      this._timerGlitch = false;
+      return "Set textGlitchDebug to false.";
+    }
+  }
+
+  stopTimer() {
+    throw new Error("The timer hasn't started yet.");
   }
 }
 
@@ -45,7 +69,7 @@ function glitch(
   var aOS = amountOfSteps || 25;
   var tBS = timeBetweenSteps || 15;
   var gC = glitchChars || `qwertyuiopasdfghjklzxcvbnm1234567890!@#$%^&*()`;
-  var doDebug = debug.glitchDebug;
+  var doDebug = debug.timerGlitch;
   if (doDebug) {
     console.log(
       `Doing ${aOS} steps with ${tBS} seconds in between, totalling ${(aOS *
@@ -81,10 +105,15 @@ function glitch(
   }
 }
 
+var stopTimer = () => {
+  throw new Error("The timer hasn't started yet.");
+};
 //just a countdown
 function showEnd(date, endMessage) {
+  var doDebug = debug.timerGlitch;
+  var previous0s = [];
+  var now;
   var end = new Date(date);
-
   var _second = 1000;
   var _minute = _second * 60;
   var _hour = _minute * 60;
@@ -92,35 +121,65 @@ function showEnd(date, endMessage) {
   var timer;
 
   function showRemaining() {
-    var now = new Date();
+    var html;
+    var glitchHtml;
+    now = new Date();
     var distance = end - now;
     if (distance < 0) {
       clearInterval(timer);
       $("#app").html(endMessage);
       return;
     }
-    var days = Math.floor(distance / _day)
-      .toString()
-      .padStart(2, "0");
-    var hours = Math.floor((distance % _day) / _hour)
-      .toString()
-      .padStart(2, "0");
-    var minutes = Math.floor((distance % _hour) / _minute)
-      .toString()
-      .padStart(2, "0");
-    var seconds = Math.floor((distance % _minute) / _second)
-      .toString()
-      .padStart(2, "0");
-    var preFormatted = `${days}.${hours}.${minutes}.${seconds}`;
-    let html = preFormatted
-      .toString()
-      .split("00")
-      .join(
-        `<span class="glitch" data-text="00" style="font-size: 1em;">00</span>`
-      );
-    $("#app").html(html);
+    var days = Math.floor(distance / _day);
+    var hours = Math.floor((distance % _day) / _hour);
+    var minutes = Math.floor((distance % _hour) / _minute);
+    var seconds = Math.floor((distance % _minute) / _second);
+    days = days.toString().padStart(2, "0");
+    hours = hours.toString().padStart(2, "0");
+    minutes = minutes.toString().padStart(2, "0");
+    seconds = seconds.toString().padStart(2, "0");
+
+    if (days == 0) {
+      glitchHtml = `<span class="glitch" style="font-size: 1em" data-text="00.">00.</span>`;
+      if (hours == 0) {
+        glitchHtml = `<span class="glitch" style="font-size: 1em" data-text="00.00">00.00</span>`;
+        if (minutes == 0) {
+          glitchHtml = `<span class="glitch" style="font-size: 1em" data-text="00.00.00">00.00.00</span>`;
+          if (seconds == 0) {
+            glitchHtml = ``;
+          } else {
+            html = `${seconds}`;
+          }
+        } else {
+          html = `${minutes}.${seconds}`;
+        }
+      } else {
+        html = `${hours}.${minutes}.${seconds}`;
+      }
+    } else {
+      html = `${days}.${hours}.${minutes}.${seconds}`;
+    }
+
+    if ($("#glitchTime").html() !== glitchHtml) {
+      $("#glitchTime").html(glitchHtml);
+    }
+    $("#time").html(html);
+    let debugObj = {
+      now: now,
+      distance: distance,
+      time: [days, hours, minutes, seconds],
+      glitchHTML: glitchHtml,
+      html: html
+    };
+    if (doDebug) {
+      console.log(debugObj);
+    }
   }
   showRemaining();
+  debug.stopTimer = () => {
+    clearInterval(timer);
+    return "stopped.";
+  };
   timer = setInterval(showRemaining, 1000);
 }
 
@@ -140,6 +199,9 @@ function loadStatus(status, userData) {
         app.html("Nothing's going on.");
         break;
       case "countdown":
+        app.html(
+          `<div id="glitchTime" style="display: inline;"></div><span id="time"></span>`
+        );
         app.css("font-size", "3em");
         console.log(status.data.time);
         showEnd(status.data.time, status.data.end);
