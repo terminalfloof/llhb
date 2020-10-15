@@ -1,6 +1,6 @@
 [
   { "key": 91613, "name": "Cason", "response": "", "type": 1 },
-  { "key": 17217, "name": "Cameron", "response": 1, "type": 1 },
+  { "key": 17217, "name": "Cameron", "response": "", "type": 1 },
   { "key": 71917, "name": "Spare", "response": "", "type": 1 },
   { "key": 48553, "name": "Nagasa", "response": "", "type": 1 },
   { "key": 13036, "name": "Auriela", "response": "", "type": 1 },
@@ -9,15 +9,15 @@
   { "key": 51702, "name": "Hio", "response": "", "type": 1 },
   { "key": 62941, "name": "Antoni", "response": "", "type": 1 },
   { "key": 94272, "name": "Michelle", "response": "", "type": 1 },
-  { "key": 11700, "name": "Remy", "response": 1, "type": 1 },
+  { "key": 11700, "name": "Remy", "response": "", "type": 1 },
   { "key": 17999, "name": "Hominem", "response": "", "type": 1 },
   { "key": 91328, "name": "Summer", "response": "", "type": 1 },
-  { "key": 73750, "name": "Takumi", "response": 1, "type": 1 },
+  { "key": 73750, "name": "Takumi", "response": "", "type": 1 },
   { "key": 37396, "name": "Fin", "response": "", "type": 2 },
   { "key": 66257, "name": "Ren", "response": "", "type": 2 },
   { "key": 97016, "name": "Hiro", "response": "", "type": 2 },
   { "key": 68916, "name": "Yva", "response": "", "type": 2 },
-  { "key": 31251, "name": "Alan", "response": 1, "type": 2 },
+  { "key": 31251, "name": "Alan", "response": "", "type": 2 },
   { "key": 23544, "name": "Marshall", "response": "", "type": 3 },
   { "key": 2322, "name": "?????", "response": "", "type": 4 }
 ]
