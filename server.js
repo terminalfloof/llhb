@@ -15,8 +15,26 @@ for (var i = 0; i < data.length; i++) {
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
+//hit the secret
+app.get("/1523", (req, res) => {
+  res.sendFile(__dirname + "/views/1523.html")
+})
+//teapot
+app.get("/makeCoffee", (req, res) => {
+  res.sendFile(__dirname + "/views/errors/418.html")
+})
 
 app.use(express.static("public"));
+
+// Handle 404
+app.use(function(req, res) {
+  res.sendFile(__dirname + "/views/errors/404.html")
+});
+
+// Handle 500
+app.use(function(error, req, res, next) {
+  res.sendFile(__dirname + "/views/errors/500.html")
+});
 
 http.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
