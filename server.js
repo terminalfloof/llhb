@@ -5,7 +5,6 @@ const http = require("http").createServer(app);
 const PORT = process.env.PORT || 3000;
 const io = require("socket.io")(http);
 const data = require("./accessKeys.json");
-const status = require("./status.json");
 let acceptedCodes = [];
 for (var i = 0; i < data.length; i++) {
   acceptedCodes.push(parseInt(data[i].key));
