@@ -1,14 +1,14 @@
+//installing modules
+const chalk = require("chalk");
 const express = require("express");
 const fs = require("fs");
 const app = express();
 const http = require("http").createServer(app);
 const PORT = process.env.PORT || 3000;
 const io = require("socket.io")(http);
-const data = require("./accessKeys.json");
-let acceptedCodes = [];
-for (var i = 0; i < data.length; i++) {
-  acceptedCodes.push(parseInt(data[i].key));
-}
+
+//get the accesskeys from the json file.
+const accessKeys = require("./accessKeys.json");
 
 //send the website.
 app.get("/", (req, res) => {
@@ -61,17 +61,5 @@ function answersEdit(code, response) {
 
 //on connect,
 io.on("connection", socket => {
-  // on login, receive the code + a check function.
-  socket.on("login", (code, check) => {
-    // check if it is a valid code, if not, reject.
-    if (acceptedCodes.includes(code)) {
-      check(true, getAccessData(code), status);
-    } else {
-      check(false);
-    }
-  });
-  socket.on("surveyReply", (code, response) => {
-    console.log(`received ${response} from ${code}`)
-    answersEdit(code, response)
-  })
+
 });

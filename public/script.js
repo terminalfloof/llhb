@@ -13,3 +13,16 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
+auth.signInWithPopup(provider);
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    console.log(`hi, ${user.displayName}`)
+  }
+  else {
+    console.log("so long.")
+  }
+})
