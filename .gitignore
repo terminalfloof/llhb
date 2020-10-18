@@ -116,3 +116,6 @@ dist
 .pnp.*
 
 codeReference.txt
+
+.prettierignore
+nodemon.json

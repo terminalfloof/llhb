@@ -1,97 +1,98 @@
 html {
-  background-color: #020305;
-  color: white;
-  font-family: "Kumbh Sans", monospace;
+	background-color: #020305;
+	color: white;
+	font-family: "Kumbh Sans", monospace;
 }
 
-body, html {
-  height: 100%;
-  margin: 0;
-  text-align: center;
+body,
+html {
+	height: 100%;
+	margin: 0;
+	text-align: center;
 }
 
 body {
-  overflow: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	overflow: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 input {
-  text-align: center;
-  font-family: "Kumbh Sans", monospace;
-  height: 40px;
-  width: 20vw;
-  color: white;
-  background-color: transparent;
-  border: 0;
-  border-bottom: 2px solid white;
-  transition: all 0.25s ease-in-out;
+	text-align: center;
+	font-family: "Kumbh Sans", monospace;
+	height: 40px;
+	width: 20vw;
+	color: white;
+	background-color: transparent;
+	border: 0;
+	border-bottom: 2px solid white;
+	transition: all 0.25s ease-in-out;
 }
 
 input:hover {
-  border-bottom: 2px solid #AAA;
+	border-bottom: 2px solid #aaa;
 }
 
 input:focus {
-  outline: none;
-  border: none;
-  border-bottom: 2px solid #599;
+	outline: none;
+	border: none;
+	border-bottom: 2px solid #599;
 }
 
 @media only screen and (max-width: 400px) {
-  input {
-    font-size: 1em;
-    transition: all 0.5s ease-in-out;
-  }
+	input {
+		font-size: 1em;
+		transition: all 0.5s ease-in-out;
+	}
 }
 @media only screen and (min-width: 400px) {
-  input {
-    font-size: 1.5em;
-    transition: all 0.5s ease-in-out;
-  }
+	input {
+		font-size: 1.5em;
+		transition: all 0.5s ease-in-out;
+	}
 }
 .cdmessage {
-  font-size: 0.65em;
-  color: gray;
-  letter-spacing: 2px;
-  margin-bottom: 15px;
+	font-size: 0.65em;
+	color: gray;
+	letter-spacing: 2px;
+	margin-bottom: 15px;
 }
 
 .glitch {
-  position: relative;
-  color: white;
-  font-size: 1em;
-  /* Animation provies a slight random skew. Check bottom of doc
+	position: relative;
+	color: white;
+	font-size: 1em;
+	/* Animation provies a slight random skew. Check bottom of doc
   for more information on how to random skew. */
 }
 .glitch::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  left: 2px;
-  text-shadow: -2px 0 #ff00c1;
-  /* Creates an initial clip for our glitch. This works in
+	content: attr(data-text);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	left: 2px;
+	text-shadow: -2px 0 #ff00c1;
+	/* Creates an initial clip for our glitch. This works in
   a typical top,right,bottom,left fashion and creates a mask
   to only show a certain part of the glitch at a time. */
-  clip: rect(44px, 450px, 56px, 0);
-  /* Runs our glitch-anim defined below to run in a 5s loop, infinitely,
+	clip: rect(44px, 450px, 56px, 0);
+	/* Runs our glitch-anim defined below to run in a 5s loop, infinitely,
   with an alternating animation to keep things fresh. */
-  animation: glitch-anim 5s infinite linear alternate-reverse;
+	animation: glitch-anim 5s infinite linear alternate-reverse;
 }
 .glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  left: -2px;
-  text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
-  animation: glitch-anim2 5s infinite linear alternate-reverse;
+	content: attr(data-text);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	left: -2px;
+	text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+	animation: glitch-anim2 5s infinite linear alternate-reverse;
 }
 
 /* Creates an animation with 20 steaps. For each step, it calculates 
@@ -99,175 +100,175 @@ a percentage for the specific step. It then generates a random clip
 box to be used for the random glitch effect. Also adds a very subtle
 skew to change the 'thickness' of the glitch.*/
 @keyframes glitch-anim {
-  0% {
-    clip: rect(91px, 9999px, 55px, 0);
-    transform: skew(0.85deg);
-  }
-  5% {
-    clip: rect(5px, 9999px, 82px, 0);
-    transform: skew(0.79deg);
-  }
-  10% {
-    clip: rect(93px, 9999px, 31px, 0);
-    transform: skew(0.54deg);
-  }
-  15% {
-    clip: rect(43px, 9999px, 87px, 0);
-    transform: skew(0.08deg);
-  }
-  20% {
-    clip: rect(57px, 9999px, 45px, 0);
-    transform: skew(0.61deg);
-  }
-  25% {
-    clip: rect(68px, 9999px, 46px, 0);
-    transform: skew(0.65deg);
-  }
-  30% {
-    clip: rect(90px, 9999px, 92px, 0);
-    transform: skew(0.08deg);
-  }
-  35% {
-    clip: rect(4px, 9999px, 15px, 0);
-    transform: skew(0.82deg);
-  }
-  40% {
-    clip: rect(74px, 9999px, 56px, 0);
-    transform: skew(0.04deg);
-  }
-  45% {
-    clip: rect(2px, 9999px, 79px, 0);
-    transform: skew(0.62deg);
-  }
-  50% {
-    clip: rect(66px, 9999px, 34px, 0);
-    transform: skew(0.31deg);
-  }
-  55% {
-    clip: rect(48px, 9999px, 8px, 0);
-    transform: skew(0.79deg);
-  }
-  60% {
-    clip: rect(27px, 9999px, 39px, 0);
-    transform: skew(0.77deg);
-  }
-  65% {
-    clip: rect(61px, 9999px, 33px, 0);
-    transform: skew(0.49deg);
-  }
-  70% {
-    clip: rect(23px, 9999px, 92px, 0);
-    transform: skew(0.05deg);
-  }
-  75% {
-    clip: rect(30px, 9999px, 56px, 0);
-    transform: skew(0.85deg);
-  }
-  80% {
-    clip: rect(100px, 9999px, 54px, 0);
-    transform: skew(0.3deg);
-  }
-  85% {
-    clip: rect(26px, 9999px, 19px, 0);
-    transform: skew(0.58deg);
-  }
-  90% {
-    clip: rect(52px, 9999px, 69px, 0);
-    transform: skew(0.83deg);
-  }
-  95% {
-    clip: rect(41px, 9999px, 95px, 0);
-    transform: skew(0.42deg);
-  }
-  100% {
-    clip: rect(29px, 9999px, 94px, 0);
-    transform: skew(0.08deg);
-  }
+	0% {
+		clip: rect(91px, 9999px, 55px, 0);
+		transform: skew(0.85deg);
+	}
+	5% {
+		clip: rect(5px, 9999px, 82px, 0);
+		transform: skew(0.79deg);
+	}
+	10% {
+		clip: rect(93px, 9999px, 31px, 0);
+		transform: skew(0.54deg);
+	}
+	15% {
+		clip: rect(43px, 9999px, 87px, 0);
+		transform: skew(0.08deg);
+	}
+	20% {
+		clip: rect(57px, 9999px, 45px, 0);
+		transform: skew(0.61deg);
+	}
+	25% {
+		clip: rect(68px, 9999px, 46px, 0);
+		transform: skew(0.65deg);
+	}
+	30% {
+		clip: rect(90px, 9999px, 92px, 0);
+		transform: skew(0.08deg);
+	}
+	35% {
+		clip: rect(4px, 9999px, 15px, 0);
+		transform: skew(0.82deg);
+	}
+	40% {
+		clip: rect(74px, 9999px, 56px, 0);
+		transform: skew(0.04deg);
+	}
+	45% {
+		clip: rect(2px, 9999px, 79px, 0);
+		transform: skew(0.62deg);
+	}
+	50% {
+		clip: rect(66px, 9999px, 34px, 0);
+		transform: skew(0.31deg);
+	}
+	55% {
+		clip: rect(48px, 9999px, 8px, 0);
+		transform: skew(0.79deg);
+	}
+	60% {
+		clip: rect(27px, 9999px, 39px, 0);
+		transform: skew(0.77deg);
+	}
+	65% {
+		clip: rect(61px, 9999px, 33px, 0);
+		transform: skew(0.49deg);
+	}
+	70% {
+		clip: rect(23px, 9999px, 92px, 0);
+		transform: skew(0.05deg);
+	}
+	75% {
+		clip: rect(30px, 9999px, 56px, 0);
+		transform: skew(0.85deg);
+	}
+	80% {
+		clip: rect(100px, 9999px, 54px, 0);
+		transform: skew(0.3deg);
+	}
+	85% {
+		clip: rect(26px, 9999px, 19px, 0);
+		transform: skew(0.58deg);
+	}
+	90% {
+		clip: rect(52px, 9999px, 69px, 0);
+		transform: skew(0.83deg);
+	}
+	95% {
+		clip: rect(41px, 9999px, 95px, 0);
+		transform: skew(0.42deg);
+	}
+	100% {
+		clip: rect(29px, 9999px, 94px, 0);
+		transform: skew(0.08deg);
+	}
 }
 @keyframes glitch-anim2 {
-  0% {
-    clip: rect(13px, 9999px, 22px, 0);
-    transform: skew(0.63deg);
-  }
-  5% {
-    clip: rect(32px, 9999px, 96px, 0);
-    transform: skew(0.94deg);
-  }
-  10% {
-    clip: rect(51px, 9999px, 17px, 0);
-    transform: skew(0.75deg);
-  }
-  15% {
-    clip: rect(51px, 9999px, 44px, 0);
-    transform: skew(0.55deg);
-  }
-  20% {
-    clip: rect(55px, 9999px, 92px, 0);
-    transform: skew(0.79deg);
-  }
-  25% {
-    clip: rect(75px, 9999px, 52px, 0);
-    transform: skew(0.12deg);
-  }
-  30% {
-    clip: rect(16px, 9999px, 80px, 0);
-    transform: skew(0.33deg);
-  }
-  35% {
-    clip: rect(9px, 9999px, 11px, 0);
-    transform: skew(0.24deg);
-  }
-  40% {
-    clip: rect(43px, 9999px, 97px, 0);
-    transform: skew(0.38deg);
-  }
-  45% {
-    clip: rect(21px, 9999px, 84px, 0);
-    transform: skew(0.01deg);
-  }
-  50% {
-    clip: rect(97px, 9999px, 60px, 0);
-    transform: skew(0.56deg);
-  }
-  55% {
-    clip: rect(57px, 9999px, 16px, 0);
-    transform: skew(0.56deg);
-  }
-  60% {
-    clip: rect(66px, 9999px, 37px, 0);
-    transform: skew(0.98deg);
-  }
-  65% {
-    clip: rect(23px, 9999px, 17px, 0);
-    transform: skew(0.31deg);
-  }
-  70% {
-    clip: rect(61px, 9999px, 5px, 0);
-    transform: skew(0.64deg);
-  }
-  75% {
-    clip: rect(16px, 9999px, 51px, 0);
-    transform: skew(0.78deg);
-  }
-  80% {
-    clip: rect(57px, 9999px, 19px, 0);
-    transform: skew(0.39deg);
-  }
-  85% {
-    clip: rect(97px, 9999px, 22px, 0);
-    transform: skew(0.95deg);
-  }
-  90% {
-    clip: rect(75px, 9999px, 9px, 0);
-    transform: skew(0.62deg);
-  }
-  95% {
-    clip: rect(14px, 9999px, 77px, 0);
-    transform: skew(0.38deg);
-  }
-  100% {
-    clip: rect(83px, 9999px, 80px, 0);
-    transform: skew(0.26deg);
-  }
+	0% {
+		clip: rect(13px, 9999px, 22px, 0);
+		transform: skew(0.63deg);
+	}
+	5% {
+		clip: rect(32px, 9999px, 96px, 0);
+		transform: skew(0.94deg);
+	}
+	10% {
+		clip: rect(51px, 9999px, 17px, 0);
+		transform: skew(0.75deg);
+	}
+	15% {
+		clip: rect(51px, 9999px, 44px, 0);
+		transform: skew(0.55deg);
+	}
+	20% {
+		clip: rect(55px, 9999px, 92px, 0);
+		transform: skew(0.79deg);
+	}
+	25% {
+		clip: rect(75px, 9999px, 52px, 0);
+		transform: skew(0.12deg);
+	}
+	30% {
+		clip: rect(16px, 9999px, 80px, 0);
+		transform: skew(0.33deg);
+	}
+	35% {
+		clip: rect(9px, 9999px, 11px, 0);
+		transform: skew(0.24deg);
+	}
+	40% {
+		clip: rect(43px, 9999px, 97px, 0);
+		transform: skew(0.38deg);
+	}
+	45% {
+		clip: rect(21px, 9999px, 84px, 0);
+		transform: skew(0.01deg);
+	}
+	50% {
+		clip: rect(97px, 9999px, 60px, 0);
+		transform: skew(0.56deg);
+	}
+	55% {
+		clip: rect(57px, 9999px, 16px, 0);
+		transform: skew(0.56deg);
+	}
+	60% {
+		clip: rect(66px, 9999px, 37px, 0);
+		transform: skew(0.98deg);
+	}
+	65% {
+		clip: rect(23px, 9999px, 17px, 0);
+		transform: skew(0.31deg);
+	}
+	70% {
+		clip: rect(61px, 9999px, 5px, 0);
+		transform: skew(0.64deg);
+	}
+	75% {
+		clip: rect(16px, 9999px, 51px, 0);
+		transform: skew(0.78deg);
+	}
+	80% {
+		clip: rect(57px, 9999px, 19px, 0);
+		transform: skew(0.39deg);
+	}
+	85% {
+		clip: rect(97px, 9999px, 22px, 0);
+		transform: skew(0.95deg);
+	}
+	90% {
+		clip: rect(75px, 9999px, 9px, 0);
+		transform: skew(0.62deg);
+	}
+	95% {
+		clip: rect(14px, 9999px, 77px, 0);
+		transform: skew(0.38deg);
+	}
+	100% {
+		clip: rect(83px, 9999px, 80px, 0);
+		transform: skew(0.26deg);
+	}
 }
 /*# sourceMappingURL=style.css.map */
