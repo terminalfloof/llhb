@@ -11,10 +11,6 @@ const io = require("socket.io")(http);
 // get the accesskeys from the json file.
 const accessKeys = require("./accessKeys.json");
 
-app.get("/users", (req, res, next) => {
-	res.status(401).send("401: Unauthorized.");
-});
-
 // send the website.
 app.get("/", (req, res) => {
 	res.sendFile(__dirname + "/views/index.html");
@@ -29,7 +25,7 @@ http.listen(PORT, () => {
 
 //on connect,
 io.on("connection", (socket) => {
-	console.log("user connected.");
+	socket.on("login", (code, callback) => {});
 });
 
 // THESE ARE ALL FOR ERRORS/SECRETS.
