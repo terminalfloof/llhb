@@ -1,16 +1,19 @@
 {
-  "name": "llhb",
-  "version": "1.0.0",
-  "description": "A supplement for a friend's story.",
-  "main": "server.js",
-  "repository": "https://www.github.com/DerpehDoge/llhb",
-  "author": "DerpehDoge",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^2.3.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.5"
-  }
+	"name": "llhb",
+	"version": "1.0.0",
+	"description": "A supplement for a friend's story.",
+	"main": "server.js",
+	"repository": "https://www.github.com/DerpehDoge/llhb",
+	"author": "DerpehDoge",
+	"license": "MIT",
+	"scripts": {
+		"start": "nodemon"
+	},
+	"dependencies": {
+		"express": "^4.17.1",
+		"socket.io": "^2.3.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.5"
+	}
 }
