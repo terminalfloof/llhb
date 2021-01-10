@@ -1,437 +1,125 @@
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+var firebaseConfig = {
+  apiKey: "AIzaSyB2pbYVVcpqTwSKQ-Wr0Ds5WWe0EZ1gx7U",
+  authDomain: "ddllhb.firebaseapp.com",
+  databaseURL: "https://ddllhb.firebaseio.com",
+  projectId: "ddllhb",
+  storageBucket: "ddllhb.appspot.com",
+  messagingSenderId: "702462043930",
+  appId: "1:702462043930:web:1db5e64613d72095816ea3",
+  measurementId: "G-S0FXP2QG84"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+let db = firebase.firestore();
+let userData;
 //setup socket.io
 var socket = io();
 
-//log a welcoming message
-console.log(
-  "%chey there buster, welcome to the big boy dev console. type in debug to see the debug tool.",
-  `font-size: 1em; color: lime;`
-);
+let __debugRandomKey = () => {};
+
+socket.on("defineKey", key => {
+  __debugRandomKey = inputtedKey => {
+    let debugKey = key;
+    if (inputtedKey !== debugKey) {
+      console.log("invalid");
+    } else {
+      db.collection("users")
+        .get()
+        .then(a => {
+          let arr = [];
+          a.forEach(doc => {
+            arr.push(doc.data());
+          });
+          let itemSelected = false;
+          let selectedItem = "";
+          while (!itemSelected) {
+            let randomSelect = Math.floor(Math.random() * arr.length);
+            console.log(
+              `Selected number ${randomSelect} (${arr[randomSelect].key}).`
+            );
+            let user = arr[randomSelect];
+            console.log(`That would be ${user.name}.`);
+            if (user.level === 1) {
+              console.log("User level IS 1.");
+              itemSelected = true;
+              selectedItem = user.key;
+            } else {
+              console.log(`User level is ${user.level}.`);
+            }
+          }
+          document.forms[0][0].value = selectedItem;
+        });
+    }
+  };
+});
 
 //on document ready, hide "#app".
 $(document).ready(() => {
   $("#app").hide();
+  $("#loggedIn").hide();
 });
 
-//create a new debug tool using classes. fancy :o
-class DebugTool {
-  constructor() {
-    this._textGlitch = false;
-    this._timerGlitch = false;
-  }
-
-  get textGlitch() {
-    return this._textGlitch;
-  }
-
-  get timerGlitch() {
-    return this._timerGlitch;
-  }
-
-  openApp() {
-    $("form").hide();
-    $("#app").show(() => {
-      console.log("app opened.");
-    });
-  }
-
-  toggleTextGlitch() {
-    if (!this._textGlitch) {
-      this._textGlitch = true;
-      return "Set textGlitchDebug to true.";
-    } else {
-      this._textGlitch = false;
-      return "Set textGlitchDebug to false.";
-    }
-  }
-
-  toggleTimerGlitch() {
-    if (!this._timerGlitch) {
-      this._timerGlitch = true;
-      return "Set timerGlitchDebug to true.";
-    } else {
-      this._timerGlitch = false;
-      return "Set textGlitchDebug to false.";
-    }
-  }
-
-  stopTimer() {
-    throw new Error("The timer hasn't started yet.");
-  }
-}
-
-//create an instance
-var debug = new DebugTool();
-
-// text glitch
-function glitch(
-  jQueryElement,
-  message,
-  amountOfSteps,
-  timeBetweenSteps,
-  glitchChars
-) {
-  //define variables.
-  var aOS = amountOfSteps || 25;
-  var tBS = timeBetweenSteps || 15;
-  var glitchLetters =
-    glitchChars || `qwertyuiopasdfghjklzxcvbnm1234567890!@#$%^&*()`;
-  //debug?
-  var doDebug = debug.timerGlitch;
-  if (doDebug) {
-    console.log(
-      `Doing ${aOS} steps with ${tBS} seconds in between, totalling ${(aOS *
-        tBS) /
-        1000} seconds.`
-    );
-  }
-  //get message length, and declare a timeout time to set timeouts individually.
-  let messageLength = message.length;
-  let timeoutTime = 0;
-  // in a foor loop from 0 to aOS, set a timeout that sets the below function to timeoutTime + (tBS*stepNumber).
-  for (var i = 0; i < aOS; i++) {
-    // is this the last interval? no? do the above block. yes? do the below block.
-    if (i !== aOS - 1) {
-      // set the timeout with the function and the timeout time.
+//prevents duplicating bug
+let alreadySubmitted = false;
+// on submit
+$("#idinput").submit(e => {
+  e.preventDefault();
+  if (!alreadySubmitted) {
+    alreadySubmitted = true;
+    if (!$("#input").val()) {
+      alreadySubmitted = false;
+      $("#input").css("transition", "all 0s");
+      $("#input").css("border-bottom", "2px solid #FDFD96");
       setTimeout(() => {
-        // create a glitch message string, and messageLength times, append a random letter in the allowed letters.
-        let glitchMessage = "";
-        for (var j = 0; j < messageLength; j++) {
-          glitchMessage +=
-            glitchLetters[Math.floor(Math.random() * glitchLetters.length)];
-        }
-        // if debug is on, log it.
-        if (doDebug) {
-          console.log(`set message to ${glitchMessage}.`);
-        }
-        // set the jquery element's html to the glitch message.
-        jQueryElement.html(glitchMessage);
-      }, timeoutTime);
+        $("#input").css("transition", "");
+        $("#input").css("border-bottom", "");
+      }, 500);
     } else {
-      // otherwise just set the message to the end message.
-      setTimeout(() => {
-        if (doDebug) {
-          console.log(`set message to ${message}, end.`);
-        }
-        jQueryElement.html(message);
-      }, timeoutTime);
-    }
-    //add tBS to timeoutTime.
-    timeoutTime = tBS + timeoutTime;
-  }
-}
-
-//this is the default, which gets overwritten when the timer starts.
-var stopTimer = () => {
-  throw new Error("The timer hasn't started yet.");
-};
-//just a countdown
-function showEnd(date, endMessage) {
-  //variables
-  var doDebug = debug.timerGlitch;
-  var previous0s = [];
-  var now;
-  var end = new Date(date);
-  var _second = 1000;
-  var _minute = _second * 60;
-  var _hour = _minute * 60;
-  var _day = _hour * 24;
-  var timer;
-
-  function showRemaining() {
-    //more vars
-    var html;
-    var glitchHtml;
-    now = new Date();
-    var distance = end - now;
-    //is it done? create the end message.
-    if (distance < 0) {
-      clearInterval(timer);
-      $("#app").html(endMessage);
-      return;
-    }
-    //calculate days, and pad it with 0s when needed.
-    var days = Math.floor(distance / _day);
-    var hours = Math.floor((distance % _day) / _hour);
-    var minutes = Math.floor((distance % _hour) / _minute);
-    var seconds = Math.floor((distance % _minute) / _second);
-    days = days.toString().padStart(2, "0");
-    hours = hours.toString().padStart(2, "0");
-    minutes = minutes.toString().padStart(2, "0");
-    seconds = seconds.toString().padStart(2, "0");
-
-    //create glitchHTMLS and regularHTMLS for each case.
-    if (days == 0) {
-      glitchHtml = `<span class="glitch" style="font-size: 1em" data-text="00.">00.</span>`;
-      if (hours == 0) {
-        glitchHtml = `<span class="glitch" style="font-size: 1em" data-text="00.00">00.00</span>`;
-        if (minutes == 0) {
-          glitchHtml = `<span class="glitch" style="font-size: 1em" data-text="00.00.00">00.00.00</span>`;
-          if (seconds == 0) {
-            glitchHtml = ``;
-          } else {
-            html = `${seconds}`;
-          }
-        } else {
-          html = `${minutes}.${seconds}`;
-        }
+      if ($("#input").val() == "1523") {
+        $(document.body).css("font-size", "3em");
+        $(document.body).html("/");
       } else {
-        html = `${hours}.${minutes}.${seconds}`;
-      }
-    } else {
-      html = `${days}.${hours}.${minutes}.${seconds}`;
-    }
-    //is the html on the page different than the new one? if so, change it. otherwise, don't. this was added to prevent a weird glitch that reset the animation every time.
-    if ($("#glitchTime").html() !== glitchHtml) {
-      $("#glitchTime").html(glitchHtml);
-    }
-    //set the time's html (non glitch) to the html needed.
-    $("#time").html(html);
-    //debug
-    let debugObj = {
-      now: now,
-      distance: distance,
-      time: [days, hours, minutes, seconds],
-      glitchHTML: glitchHtml,
-      html: html
-    };
-    if (doDebug) {
-      console.log(debugObj);
-    }
-  }
-  showRemaining();
-  debug.stopTimer = () => {
-    clearInterval(timer);
-    return "stopped.";
-  };
-  timer = setInterval(showRemaining, 1000);
-}
-
-//just a countup. same concepts, except w/o glitch or end message.
-function countUp(beginning) {
-  var doDebug = debug.timerGlitch;
-  var now;
-  var beginning = new Date(beginning);
-  var _second = 1000;
-  var _minute = _second * 60;
-  var _hour = _minute * 60;
-  var _day = _hour * 24;
-  var timer;
-
-  function showRemaining() {
-    var html;
-    var glitchHtml;
-    now = new Date();
-    var distance = now - beginning;
-    var days = Math.floor(distance / _day);
-    var hours = Math.floor((distance % _day) / _hour);
-    var minutes = Math.floor((distance % _hour) / _minute);
-    var seconds = Math.floor((distance % _minute) / _second);
-    days = days.toString().padStart(2, "0");
-    hours = hours.toString().padStart(2, "0");
-    minutes = minutes.toString().padStart(2, "0");
-    seconds = seconds.toString().padStart(2, "0");
-
-    html = `${days}.${hours}.${minutes}.${seconds}`;
-    $("#time").html(html);
-    if (doDebug) {
-      let debugObj = {
-        now: now,
-        distance: distance,
-        time: [days, hours, minutes, seconds],
-        glitchHTML: glitchHtml,
-        html: html
-      };
-      console.log(debugObj);
-    }
-  }
-  showRemaining();
-  timer = setInterval(showRemaining, 1000);
-}
-
-// load the status from status.json
-function loadStatus(status, userData) {
-  let app = $("#app");
-  // if fail, console.log error, and show it in the app.
-  try {
-    // save the #app div as a variable.
-    // switch the type in the status, and do stuff depending on what to do.
-    switch (status.type) {
-      case "message":
-        app.html(status.data.message);
-        break;
-      case "none":
-        app.css("font-size", "2em");
-        app.html("Nothing's going on.");
-        break;
-      case "countdown":
-        app.html(
-          `<div class="cdmessage">${status.data.message}</div><div id="glitchTime" style="display: inline;"></div><span id="time"></span>`
-        );
-        app.css("font-size", "3em");
-        console.log(status.data.time);
-        showEnd(status.data.time, status.data.end);
-        break;
-      case "survey":
-        // is the user included in the surveyed peeps, or is it just all?
-        if (
-          status.data.users.includes(userData.key) ||
-          status.data.users.includes("all")
-        ) {
-          //change font size.
-          app.css("font-size", "1em");
-          //add the question.
-          app.html(`${status.data.question}<br>`);
-          //append the form.
-          app.append(
-            `<form name="survey" id="survey"><input id="surveyResponse" name="response"></form>`
-          );
-          //change the css of the input.
-          $("#surveyResponse").css("font-size", "1em");
-          //on submit.
-          $("#survey").submit(e => {
-            //prevent default.
-            e.preventDefault();
-            //all accepted values are in the status.json file.
-            let acceptedValues = status.data.allowedResponses;
-            console.log(document.forms["survey"]["response"]);
-            //if it's an allowed value, send the message to the back end server in the "surveyReply" channel, and notify user about what they submitted.
-            if (
-              acceptedValues.includes(
-                parseInt(document.forms["survey"]["response"].value)
-              )
-            ) {
-              socket.emit(
-                "surveyReply",
-                userData.key,
-                parseInt(document.forms["survey"]["response"].value)
-              );
-              $("#app").fadeOut(500, () => {
-                $("#app").html(
-                  `Thanks for submitting, ${userData.name}.<br><span style="font-size: 0.75em">You submitted <strong>${document.forms["survey"]["response"].value}</strong></span>.`
-                );
-                $("#app").css("font-size", "1.5em");
-                $("#app").fadeIn(500);
-              });
+        db.collection("users")
+          .doc($("#input").val())
+          .get()
+          .then(doc => {
+            if (doc.exists) {
+              userData = doc.data();
+              $("#input").css("transition", "all 0s");
+              $("#input").css("border-bottom", "2px solid lightgreen");
+              setTimeout(() => {
+                $("#input").css("transition", "");
+                $("#input").css("border-bottom", "");
+                $("#idinput").fadeOut(500, () => {
+                  setup(() => {
+                    $("#app").fadeIn(500);
+                  });
+                });
+              }, 500);
             } else {
-              //otherwise, notify the user that they didn't submit an accepted value.
-              let acceptedValues = status.data.allowedResponses;
-              let list = "Invalid response. Please input one of these values: ";
-              //format the alert box.
-              for (var i = 0; i < acceptedValues.length; i++) {
-                if (i === acceptedValues.length) {
-                  list += ", " + acceptedValues[i] + ".";
-                } else if (i === 0) {
-                  list += acceptedValues[i];
-                } else {
-                  list += ", " + acceptedValues[i];
-                }
-              }
-              alert(list);
-              //set the input to nothing.
-              document.forms["survey"]["response"].value = "";
+              alreadySubmitted = false;
+              $("#input").css("transition", "all 0s");
+              $("#input").css("border-bottom", "2px solid coral");
+              setTimeout(() => {
+                $("#input").css("transition", "");
+                $("#input").css("border-bottom", "");
+              }, 500);
             }
           });
-        } else {
-          //if they're not in the surveyed group, show the default html.
-          $("#app").css("font-size", "1em");
-          $("#app").html(status.data.altMessage);
-        }
-        break;
-
-      case "countup":
-        app.html(
-          `<div class="cdmessage">${status.data.message}</div></div><span id="time"></span>`
-        );
-        countUp(status.data.time);
-        break;
-      default:
-        throw new Error(`Invalid status type, got "${status.type}".`);
-    }
-  } catch (err) {
-    //catch my sh*tty mistakes
-    console.log(err);
-    app.html(
-      `Looks like the developer of this site sucks at coding. There was an error. <br><br><span style="color: green; font-family: monospace;">${err.message}</span>`
-    );
-  }
-}
-
-//on submit,
-$("#idinput").submit(event => {
-  //prevent default.
-  event.preventDefault();
-  //console.log your submission.
-  console.log(`inputted ${document.forms["idinput"]["id"].value}`);
-  //emit an event on the "login" channel, with the code value (parsed as an int), and a function.
-  //the function gets the result, the user data that matched, and the status.json value at that time.
-  socket.emit(
-    "login",
-    parseInt(document.forms["idinput"]["id"].value),
-    function(result, data, status) {
-      //if the function gets passed true, do this.
-      if (result) {
-        //log passed.
-        console.log("passed.");
-        //fade out and hide the input div.
-        $("#inputdiv").fadeOut(500, function() {
-          $("#inputdiv").hide(() => {
-            //set the app's css.
-            $("#app").css("font-size", "1.5em");
-            //if the data's name is ?????, do a glitchie glitchie effect
-            if (data.name === "?????") {
-              let randomSymbols = "!@#$%^&*r";
-              randomSymbols = randomSymbols.split("");
-              let finalString = "";
-              for (var i = 0; i < 5; i++) {
-                let currentSymbol =
-                  randomSymbols[
-                    Math.floor(Math.random() * randomSymbols.length)
-                  ];
-                if (currentSymbol === "r") {
-                  finalString += "Giles".split("")[i];
-                } else {
-                  finalString += currentSymbol;
-                }
-              }
-              $("#app").html(
-                `Welcome back to the MDBS, <span class="glitch" style="font-size: 1em" data-text="${finalString}">${finalString}.</span>`
-              );
-              //otherwise, if your access level is greater than 1, show this.
-            } else if (data.level > 1) {
-              $("#app").html(`Welcome back to the MDBS, ${data.name}.`);
-              //otherwise show this.
-            } else {
-              $("#app").html(`Welcome to the MDBS, ${data.name}.`);
-            }
-          });
-          //fade in.
-          $("#app").fadeIn(1000);
-          //fade out, and then load the status.json to show an actual thing.
-          $("#app").fadeOut(1000, () => {
-            loadStatus(status, data);
-          });
-          //fade back in.
-          $("#app").fadeIn(1000);
-        });
-        //otherwise do this.
-      } else {
-        //is it the secret code? if so, do a secret
-        if (document.forms["idinput"]["id"].value === "1523") {
-          $("#inputdiv").fadeOut(500, () => {
-            $("#inputdiv").css("font-size", "4em");
-            $("#inputdiv").html("<span class='glitch' data-text='/'>/</span>");
-          })
-          console.log("failed...?");
-          $("#inputdiv").fadeIn(500);
-        } else {
-          //otherwise just fade out and set to nothing.
-          $("#inputdiv").fadeOut(100, () => {
-            document.forms["idinput"]["id"].value = "";
-          });
-          console.log("failed.");
-          $("#inputdiv").fadeIn(100);
-        }
       }
     }
+  }
+});
+
+function setup(callback) {
+  var callback = callback ||  function(){};
+  $("#app").append(`<h1>...</h1>`)
+  $("#loggedIn").html(
+    `<span>${userData.name}</span><div class="break"></div><span style="color: azure;font-weight: bold;font-size: 1.2em;">${userData.level === 1? 'D' + userData.dorm : 'L' + userData.level}</span>`
   );
-});
+  $("#loggedIn").fadeIn(250);
+  callback();
+}
